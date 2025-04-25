@@ -1,31 +1,47 @@
 pipeline {
   agent any
 
-  stages {
-    
+  environment {
+    NVM_DIR = '/var/lib/jenkins/.nvm'
+    PATH = "${NVM_DIR}/versions/node/v16.20.2/bin:${env.PATH}"
+  }
 
+  stages {
     stage('Install') {
       steps {
-        sh 'npm install' // or pip install -r requirements.txt for Python
+        sh '''
+          source $NVM_DIR/nvm.sh
+          nvm use 16
+          npm install
+        '''
       }
     }
 
     stage('Test') {
       steps {
-        sh 'npm test' // adjust this to your app's test command
+        sh '''
+          source $NVM_DIR/nvm.sh
+          nvm use 16
+          npm test
+        '''
       }
     }
 
     stage('Build') {
       steps {
-        sh 'npm run build' // or whatever build command your app uses
+        sh '''
+          source $NVM_DIR/nvm.sh
+          nvm use 16
+          npm run build
+        '''
       }
     }
 
     stage('Deploy') {
       steps {
-        // simple deployment script, e.g., scp or rsync to a server
-        sh 'scp -i your-key.pem -r ./build ec2-user@your-ec2-ip:/var/www/html/'
+        sh '''
+          scp -i your-key.pem -r ./build ec2-user@your-ec2-ip:/var/www/html/
+        '''
       }
     }
   }
