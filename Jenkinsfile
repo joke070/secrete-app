@@ -2,11 +2,7 @@ pipeline {
   agent any
 
   stages {
-    stage('Clone') {
-      steps {
-        git  'https://github.com/joke070/secrete-app.git'
-      }
-    }
+    
 
     stage('Install') {
       steps {
