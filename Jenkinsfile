@@ -40,8 +40,8 @@ pipeline {
     stage('Deploy') {
       steps {
         sh '''
-          scp -i your-key.pem -r ./build ec2-user@your-ec2-ip:/var/www/html/
-        '''
+          scp -i /var/lib/jenkins/newLinuxKey.pem -o StrictHostKeyChecking=no -r ./build ec2-user@ec2-3-66-220-243.eu-central-1.compute.amazonaws.com:/var/www/html/
+       '''
       }
     }
   }
