@@ -6,7 +6,7 @@ tools {nodejs "nodejs"}
   stages {
     stage('Install Dependencies') {
       steps {
-        sh 'npn install'
+        sh 'npm install'
       }
     }
 
